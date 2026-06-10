@@ -73,6 +73,7 @@ func (c *BaseController) Prepare() {
 		}
 		c.EnableAnonymous = strings.EqualFold(c.Option["ENABLE_ANONYMOUS"], "true")
 		c.EnableDocumentHistory = strings.EqualFold(c.Option["ENABLE_DOCUMENT_HISTORY"], "true")
+		c.Data["SiteScript"] = template.HTML(c.Option["site_script"])
 	}
 	c.Data["HighlightStyle"] = web.AppConfig.DefaultString("highlight_style", "github")
 

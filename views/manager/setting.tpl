@@ -46,6 +46,11 @@
                             <p class="text">{{i18n .Lang "mgr.site_desc_tips"}}</p>
                         </div>
                         <div class="form-group">
+                            <label>{{i18n .Lang "mgr.site_script"}}</label>
+                            <textarea rows="6" class="form-control" name="site_script" style="height: 150px" placeholder="{{i18n .Lang "mgr.site_script"}}">{{.site_script}}</textarea>
+                            <p class="text">{{i18n .Lang "mgr.site_script_tips"}}</p>
+                        </div>
+                        <div class="form-group">
                             <label>{{i18n .Lang "mgr.language"}}</label>
                             <select name="language" class="form-control">
                                 {{$curLang := .Lang}}

@@ -371,5 +371,6 @@ $(function () {
 });
 </script>
 {{.Scripts}}
+{{.SiteScript}}
 </body>
 </html>
