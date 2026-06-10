@@ -11,6 +11,26 @@ if [[ -z "$(ls -A -- "/mindoc/static")" ]] ; then cp -r "/mindoc/__default_asset
 if [ ! -d "/mindoc/views" ]; then mkdir -p "/mindoc/views" ; fi
 if [[ -z "$(ls -A -- "/mindoc/views")" ]] ; then cp -r "/mindoc/__default_assets__/views" "/mindoc/" ; fi
 
+refresh_view_if_missing_marker() {
+    local file="$1"
+    local marker="$2"
+    local target="/mindoc/views/$file"
+    local source="/mindoc/__default_assets__/views/$file"
+
+    if [ -f "$source" ] && { [ ! -f "$target" ] || ! grep -q "$marker" "$target" ; }; then
+        if [ -f "$target" ]; then
+            cp "$target" "$target.bak.$(date +%Y%m%d%H%M%S)"
+        fi
+        mkdir -p "$(dirname "$target")"
+        cp "$source" "$target"
+    fi
+}
+
+refresh_view_if_missing_marker "manager/setting.tpl" "site_script"
+refresh_view_if_missing_marker "widgets/footer.tpl" "SiteScript"
+refresh_view_if_missing_marker "document/default_read.tpl" "SiteScript"
+refresh_view_if_missing_marker "document/cherry_read.tpl" "SiteScript"
+
 if [ ! -d "/mindoc/uploads" ]; then mkdir -p "/mindoc/uploads" ; fi
 if [[ -z "$(ls -A -- "/mindoc/uploads")" ]] ; then cp -r "/mindoc/__default_assets__/uploads" "/mindoc/" ; fi
 

@@ -31,7 +31,7 @@ ADD start.sh /go/src/github.com/mindoc-org/mindoc
 
 
 # upgrade to the latest
-FROM ubuntu:latest
+FROM ubuntu:24.04
 
 # 切换默认shell为bash
 SHELL ["/bin/bash", "-c"]
@@ -83,9 +83,9 @@ RUN apt-get install -y --no-install-recommends \
         libglx0 libegl1 libnss3 libxcomposite1 libxkbcommon0 libxdamage1 libxrandr-dev libopengl0 libxtst6 libasound2t64 libxkbfile1\
         wget xz-utils && \
     mkdir -p /tmp/calibre-cache /opt/calibre && \
-    wget -O /tmp/calibre-cache/calibre-x86_64.txz -c https://download.calibre-ebook.com/7.26.0/calibre-7.26.0-x86_64.txz  --no-check-certificate && \
-    tar xJof /tmp/calibre-cache/calibre-x86_64.txz -C /opt/calibre && \
-    rm -rf /tmp/calibre-cache && \
+##    wget -O /tmp/calibre-cache/calibre-x86_64.txz -c https://download.calibre-ebook.com/7.26.0/calibre-7.26.0-x86_64.txz  --no-check-certificate && \
+##    tar xJof /tmp/calibre-cache/calibre-x86_64.txz -C /opt/calibre && \
+##    rm -rf /tmp/calibre-cache && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 设置环境变量
@@ -94,7 +94,7 @@ ENV PATH="/opt/calibre:$PATH" \
     QT_QPA_PLATFORM="offscreen"
 
 # 测试 calibre 是否可正常使用
-RUN ebook-convert --version
+##RUN ebook-convert --version
 
 # refer: https://docs.docker.com/engine/reference/builder/#volume
 VOLUME ["/mindoc/conf","/mindoc/static","/mindoc/views","/mindoc/uploads","/mindoc/runtime","/mindoc/database"]
