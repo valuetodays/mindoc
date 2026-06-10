@@ -26,10 +26,29 @@ refresh_view_if_missing_marker() {
     fi
 }
 
-refresh_view_if_missing_marker "manager/setting.tpl" "site_script"
-refresh_view_if_missing_marker "widgets/footer.tpl" "SiteScript"
-refresh_view_if_missing_marker "document/default_read.tpl" "SiteScript"
-refresh_view_if_missing_marker "document/cherry_read.tpl" "SiteScript"
+refresh_view_if_missing_marker "manager/setting.tpl" "watermark_variable_label"
+refresh_view_if_missing_marker "widgets/footer.tpl" "mindoc-watermark"
+refresh_view_if_missing_marker "document/default_read.tpl" "mindoc-watermark"
+refresh_view_if_missing_marker "document/cherry_read.tpl" "mindoc-watermark"
+
+refresh_lang_if_missing_marker() {
+    local file="$1"
+    local marker="$2"
+    local target="/mindoc/conf/lang/$file"
+    local source="/mindoc/__default_assets__/conf/lang/$file"
+
+    if [ -f "$source" ] && { [ ! -f "$target" ] || ! grep -q "$marker" "$target" ; }; then
+        if [ -f "$target" ]; then
+            cp "$target" "$target.bak.$(date +%Y%m%d%H%M%S)"
+        fi
+        mkdir -p "$(dirname "$target")"
+        cp "$source" "$target"
+    fi
+}
+
+refresh_lang_if_missing_marker "zh-cn.ini" "watermark_variable_tips"
+refresh_lang_if_missing_marker "en-us.ini" "watermark_variable_tips"
+refresh_lang_if_missing_marker "ru-ru.ini" "watermark_variable_tips"
 
 if [ ! -d "/mindoc/uploads" ]; then mkdir -p "/mindoc/uploads" ; fi
 if [[ -z "$(ls -A -- "/mindoc/uploads")" ]] ; then cp -r "/mindoc/__default_assets__/uploads" "/mindoc/" ; fi

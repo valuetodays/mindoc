@@ -37,6 +37,7 @@ type CookieRemember struct {
 // Prepare 预处理.
 func (c *BaseController) Prepare() {
 	c.Data["SiteName"] = "MinDoc"
+	c.Data["WatermarkTextJS"] = template.JS(`""`)
 	c.Data["Member"] = models.NewMember()
 	controller, action := c.GetControllerAndAction()
 
@@ -74,6 +75,13 @@ func (c *BaseController) Prepare() {
 		c.EnableAnonymous = strings.EqualFold(c.Option["ENABLE_ANONYMOUS"], "true")
 		c.EnableDocumentHistory = strings.EqualFold(c.Option["ENABLE_DOCUMENT_HISTORY"], "true")
 		c.Data["SiteScript"] = template.HTML(c.Option["site_script"])
+		watermarkContent := strings.TrimSpace(c.renderWatermarkContent(c.Option["watermark_content"]))
+		if watermarkContent == "" {
+			watermarkContent = c.Option["SITE_NAME"]
+		}
+		if watermarkText, err := json.Marshal(watermarkContent); err == nil {
+			c.Data["WatermarkTextJS"] = template.JS(string(watermarkText))
+		}
 	}
 	c.Data["HighlightStyle"] = web.AppConfig.DefaultString("highlight_style", "github")
 
@@ -82,6 +90,34 @@ func (c *BaseController) Prepare() {
 	}
 
 	c.SetLang()
+}
+
+func (c *BaseController) renderWatermarkContent(content string) string {
+	userName := "访客"
+	account := ""
+	realName := ""
+	email := ""
+	if c.Member != nil && c.Member.MemberId > 0 {
+		account = c.Member.Account
+		realName = c.Member.RealName
+		email = c.Member.Email
+		userName = strings.TrimSpace(realName)
+		if userName == "" {
+			userName = account
+		}
+	}
+
+	now := time.Now()
+	return strings.NewReplacer(
+		"{{userName}}", userName,
+		"{{account}}", account,
+		"{{realName}}", realName,
+		"{{email}}", email,
+		"{{siteName}}", c.Option["SITE_NAME"],
+		"{{date}}", now.Format("2006-01-02"),
+		"{{time}}", now.Format("15:04:05"),
+		"{{dateTime}}", now.Format("2006-01-02 15:04:05"),
+	).Replace(content)
 }
 
 // 判断用户是否登录.

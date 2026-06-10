@@ -174,6 +174,26 @@ func (m *Option) Init() error {
 		}
 	}
 
+	if !o.QueryTable(m.TableNameWithPrefix()).Filter("option_name", "ENABLE_WATERMARK").Exist() {
+		option := NewOption()
+		option.OptionValue = "false"
+		option.OptionName = "ENABLE_WATERMARK"
+		option.OptionTitle = "是否启用水印"
+		if _, err := o.Insert(option); err != nil {
+			return err
+		}
+	}
+
+	if !o.QueryTable(m.TableNameWithPrefix()).Filter("option_name", "watermark_content").Exist() {
+		option := NewOption()
+		option.OptionValue = "MinDoc"
+		option.OptionName = "watermark_content"
+		option.OptionTitle = "水印内容"
+		if _, err := o.Insert(option); err != nil {
+			return err
+		}
+	}
+
 	if !o.QueryTable(m.TableNameWithPrefix()).Filter("option_name", "language").Exist() {
 		option := NewOption()
 		option.OptionValue = "zh-cn"
@@ -204,6 +224,24 @@ func (m *Option) Update() error {
 		option.OptionValue = ""
 		option.OptionName = "site_script"
 		option.OptionTitle = "自定义脚本"
+		if _, err := o.Insert(option); err != nil {
+			return err
+		}
+	}
+	if !o.QueryTable(m.TableNameWithPrefix()).Filter("option_name", "ENABLE_WATERMARK").Exist() {
+		option := NewOption()
+		option.OptionValue = "false"
+		option.OptionName = "ENABLE_WATERMARK"
+		option.OptionTitle = "是否启用水印"
+		if _, err := o.Insert(option); err != nil {
+			return err
+		}
+	}
+	if !o.QueryTable(m.TableNameWithPrefix()).Filter("option_name", "watermark_content").Exist() {
+		option := NewOption()
+		option.OptionValue = "MinDoc"
+		option.OptionName = "watermark_content"
+		option.OptionTitle = "水印内容"
 		if _, err := o.Insert(option); err != nil {
 			return err
 		}

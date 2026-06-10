@@ -51,6 +51,28 @@
                             <p class="text">{{i18n .Lang "mgr.site_script_tips"}}</p>
                         </div>
                         <div class="form-group">
+                            <label>{{i18n .Lang "mgr.enable_watermark"}}</label>
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" {{if eq .ENABLE_WATERMARK "true"}}checked{{end}} name="ENABLE_WATERMARK" value="true">{{i18n .Lang "mgr.enable"}}<span class="text"></span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" {{if eq .ENABLE_WATERMARK "false"}}checked{{end}} name="ENABLE_WATERMARK" value="false">{{i18n .Lang "mgr.disable"}}<span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{i18n .Lang "mgr.watermark_content"}}</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="watermark_content" placeholder="{{i18n .Lang "mgr.watermark_content"}}" value="{{.watermark_content}}">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-question-circle"></i> {{i18n .Lang "mgr.watermark_variable_label"}}
+                                </span>
+                            </div>
+                            <p class="text">{{i18n .Lang "mgr.watermark_variable_tips"}}</p>
+                            <p class="text">{{i18n .Lang "mgr.watermark_content_tips"}}</p>
+                        </div>
+                        <div class="form-group">
                             <label>{{i18n .Lang "mgr.language"}}</label>
                             <select name="language" class="form-control">
                                 {{$curLang := .Lang}}
@@ -126,6 +148,8 @@
 <script src="{{cdnjs "/static/js/main.js"}}" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+
         $("#gloablEditForm").ajaxForm({
             beforeSubmit : function () {
                 var title = $.trim($("#siteName").val());
