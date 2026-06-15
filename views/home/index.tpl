@@ -22,6 +22,39 @@
 <div class="manual-reader manual-container">
     {{template "widgets/header.tpl" .}}
     <div class="container manual-body">
+        <section class="home-hero">
+            <div class="home-hero-content">
+                <h1>个人知识库 / 技术沉淀 / 财富实验室</h1>
+                <p>
+                    这里记录长期积累的技术问题、系统设计、生产复盘、财富实验与个人观察。<br>
+                    不是碎片收藏，而是持续维护的个人知识系统。
+                </p>
+                <div class="home-hero-tags">
+                    <span>持续维护</span>
+                    <span>真实问题复盘</span>
+                    <span>财富实验室</span>
+                    <span>技术与系统沉淀</span>
+                </div>
+            </div>
+        </section>
+        <section class="home-entry-list">
+            <a href="#" class="home-entry-card">
+                <strong>财富实验室</strong>
+                <span>记录真实观察、实验验证与财富相关规律。</span>
+            </a>
+            <a href="#" class="home-entry-card">
+                <strong>生产问题复盘</strong>
+                <span>沉淀真实线上问题、排查过程与解决方案。</span>
+            </a>
+            <a href="#" class="home-entry-card">
+                <strong>开发技术沉淀</strong>
+                <span>记录 Java、Quarkus、Spring Boot、前后端开发经验。</span>
+            </a>
+            <a href="#" class="home-entry-card">
+                <strong>基础设施与运维</strong>
+                <span>记录 Docker、Nginx、日志、监控、部署等内容。</span>
+            </a>
+        </section>
         <div class="row">
              <div class="manual-list">
                 {{range $index,$item := .Lists}}
