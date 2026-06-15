@@ -37,13 +37,13 @@ jobs:
           sha256sum mindoc-2.2-vt-${{ env.VERSION }}-win.exe   > mindoc-2.2-vt-${{ env.VERSION }}-win.exe.sha256
           sha256sum mindoc-2.2-vt-${{ env.VERSION }}-linux     > mindoc-2.2-vt-${{ env.VERSION }}-linux.sha256
 
-      - name: Upload Release Assets
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            build/mindoc-2.2-vt-*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          #      - name: Upload Release Assets
+        #        uses: softprops/action-gh-release@v2
+          #        with:
+          #          files: |
+            #            build/mindoc-2.2-vt-*
+            #        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       # ============================
       # Docker Hub 推送开始
