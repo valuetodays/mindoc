@@ -29,12 +29,12 @@
                     这里记录长期积累的技术问题、系统设计、生产复盘、财富实验与个人观察。<br>
                     不是碎片收藏，而是持续维护的个人知识系统。
                 </p>
-                <div class="home-hero-tags">
-                    <span>持续维护</span>
-                    <span>真实问题复盘</span>
-                    <span>财富实验室</span>
-                    <span>技术与系统沉淀</span>
-                </div>
+            </div>
+            <div class="home-hero-tags">
+                <span>持续维护</span>
+                <span>真实问题复盘</span>
+                <span>财富实验室</span>
+                <span>技术与系统沉淀</span>
             </div>
         </section>
         <section class="home-entry-list">
