@@ -56,38 +56,20 @@
             </a>
         </section>
         <div class="row">
-             <div class="manual-list">
+             <div class="manual-list home-book-directory">
+                <div class="home-book-directory-head">
+                    <strong>知识库目录</strong>
+                    <span>按主题进入长期维护的知识库</span>
+                </div>
                 {{range $index,$item := .Lists}}
-                    <div class="list-item" data-id="{{$item.BookId}}">
-                        <dl class="manual-item-standard">
-                            <dt>
-                                <a href="{{urlfor "DocumentController.Index" ":key" $item.Identify}}" title="{{$item.BookName}}-{{$item.CreateName}}">
-                                    <img src="{{cdnimg $item.Cover}}" class="cover" alt="{{$item.BookName}}-{{$item.CreateName}}" onerror="this.src='{{cdnimg "static/images/book.jpg"}}';">
-                                </a>
-                            </dt>
-                            <dd>
-                                <a href="{{urlfor "DocumentController.Index" ":key" $item.Identify}}" class="name" title="{{$item.BookName}}-{{$item.CreateName}}">{{$item.BookName}}</a>
-                            </dd>
-                            <dd>
-                            <span class="author">
-                                <b class="text">{{i18n $.Lang "blog.author"}}</b>
-                                <b class="text">-</b>
-                                <b class="text">{{if eq $item.RealName "" }}{{$item.CreateName}}{{else}}{{$item.RealName}}{{end}}</b>
-                            </span>
-                            </dd>
-                        </dl>
-                    </div>
+                    <a href="{{urlfor "DocumentController.Index" ":key" $item.Identify}}" class="home-book-link" data-id="{{$item.BookId}}" title="{{$item.BookName}}">
+                        {{$item.BookName}}
+                    </a>
                 {{else}}
-                    <div class="text-center" style="height: 200px;margin: 100px;font-size: 28px;">{{i18n $.Lang "message.no_project"}}</div>
+                    <div class="home-book-empty">{{i18n $.Lang "message.no_project"}}</div>
                 {{end}}
                 <div class="clearfix"></div>
             </div>
-            <nav class="pagination-container">
-                {{if gt .TotalPages 1}}
-                    {{.PageHtml}}
-                {{end}}
-                <div class="clearfix"></div>
-            </nav>
         </div>
     </div>
     {{template "widgets/footer.tpl" .}}

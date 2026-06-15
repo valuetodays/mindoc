@@ -446,6 +446,61 @@ body .scrollbar-track-color {
     color: #484848;
 }
 
+.home-book-directory {
+    margin: 10px 0 0;
+    padding: 16px 18px;
+    border: 1px solid #e7e7e7;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+.home-book-directory-head {
+    margin-bottom: 12px;
+}
+
+.home-book-directory-head strong {
+    display: inline-block;
+    margin-right: 10px;
+    color: #263238;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.home-book-directory-head span {
+    color: #8a948f;
+    font-size: 12px;
+}
+
+.home-book-link {
+    float: left;
+    display: block;
+    width: 15.66%;
+    height: 34px;
+    margin: 0 1% 10px 0;
+    padding: 0 12px;
+    border: 1px solid #e5e9e7;
+    border-radius: 4px;
+    color: #34423b;
+    background: #fbfcfb;
+    font-size: 13px;
+    line-height: 32px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.home-book-link:hover {
+    border-color: #cfded5;
+    color: #1f5f3d;
+    background: #f7faf8;
+}
+
+.home-book-empty {
+    padding: 12px 0;
+    color: #8a948f;
+    font-size: 13px;
+}
+
 
 /*************文档列表******************/
 .book-list .list-item {
@@ -1273,6 +1328,20 @@ body .scrollbar-track-color {
         display: block;
         min-height: 0;
         margin-bottom: 12px;
+    }
+
+    .home-book-directory {
+        padding: 14px;
+    }
+
+    .home-book-directory-head span {
+        display: block;
+        margin-top: 4px;
+    }
+
+    .home-book-link {
+        width: 49%;
+        margin-right: 1%;
     }
 
     .manual-body .page-left {
