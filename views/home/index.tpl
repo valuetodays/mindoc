@@ -55,7 +55,7 @@
                 <span>记录 Docker、Nginx、日志、监控、部署等内容。</span>
             </a>
         </section>
-        <div class="row">
+        <div class="row home-book-directory-row">
              <div class="manual-list home-book-directory">
                 <div class="home-book-directory-head">
                     <strong>知识库目录</strong>
