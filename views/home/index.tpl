@@ -37,24 +37,16 @@
                 <span>技术与系统沉淀</span>
             </div>
         </section>
-        <section class="home-entry-list">
-            <a href="#" class="home-entry-card">
-                <strong>财富实验室</strong>
-                <span>记录真实观察、实验验证与财富相关规律。</span>
-            </a>
-            <a href="#" class="home-entry-card">
-                <strong>生产问题复盘</strong>
-                <span>沉淀真实线上问题、排查过程与解决方案。</span>
-            </a>
-            <a href="#" class="home-entry-card">
-                <strong>开发技术沉淀</strong>
-                <span>记录 Java、Quarkus、Spring Boot、前后端开发经验。</span>
-            </a>
-            <a href="#" class="home-entry-card">
-                <strong>基础设施与运维</strong>
-                <span>记录 Docker、Nginx、日志、监控、部署等内容。</span>
-            </a>
-        </section>
+        {{if .HomePins}}
+            <section class="home-entry-list">
+                {{range $index,$item := .HomePins}}
+                    <a href="{{urlfor "DocumentController.Index" ":key" $item.Identify}}" class="home-entry-card" title="{{$item.BookName}}">
+                        <strong>{{$item.BookName}}</strong>
+                        <span>{{$item.Description}}</span>
+                    </a>
+                {{end}}
+            </section>
+        {{end}}
         <div class="row home-book-directory-row">
              <div class="manual-list home-book-directory">
                 <div class="home-book-directory-head">

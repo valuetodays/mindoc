@@ -174,6 +174,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="homePin">{{i18n $.Lang "blog.home_pin"}}</label>
+                    <div class="controls">
+                        <div class="switch switch-small" data-on="primary" data-off="info">
+                            <input type="checkbox" id="homePin" name="home_pin"{{if .Model.HomePin }} checked{{end}} data-size="small" placeholder="{{i18n $.Lang "blog.home_pin"}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="autoRelease">{{i18n $.Lang "blog.auto_save"}}</label>
                     <div class="controls">
                         <div class="switch switch-small" data-on="primary" data-off="info">
@@ -348,7 +356,7 @@
         }).on("show.bs.modal",function () {
             window.modalHtml = $("#upload-logo-panel").find(".modal-body").html();
         });
-        $("#autoRelease,#enableShare,#isDownload,#isUseFirstDocument,#autoSave").bootstrapSwitch();
+        $("#autoRelease,#enableShare,#isDownload,#isUseFirstDocument,#homePin,#autoSave").bootstrapSwitch();
 
         $('input[name="label"]').tagsinput({
             confirmKeys: [13,44],

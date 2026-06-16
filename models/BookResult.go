@@ -42,6 +42,7 @@ type BookResult struct {
 	Description    string    `json:"description"`
 	Publisher      string    `json:"publisher"`
 	PrivatelyOwned int       `json:"privately_owned"`
+	HomePin        bool      `json:"home_pin"`
 	PrivateToken   string    `json:"private_token"`
 	BookPassword   string    `json:"book_password"`
 	DocCount       int       `json:"doc_count"`
@@ -195,6 +196,7 @@ func (m *BookResult) ToBookResult(book Book) *BookResult {
 	m.OrderIndex = book.OrderIndex
 	m.Description = strings.Replace(book.Description, "\r\n", "<br/>", -1)
 	m.PrivatelyOwned = book.PrivatelyOwned
+	m.HomePin = strings.EqualFold(book.HomePin, "t")
 	m.PrivateToken = book.PrivateToken
 	m.BookPassword = book.BookPassword
 	m.DocCount = book.DocCount

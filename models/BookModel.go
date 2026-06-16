@@ -53,6 +53,8 @@ type Book struct {
 	Label     string `orm:"column(label);size(500);description(所属标签)" json:"label"`
 	// PrivatelyOwned 项目私有： 0 公开/ 1 私有
 	PrivatelyOwned int `orm:"column(privately_owned);type(int);default(0);description(项目私有： 0 公开/ 1 私有)" json:"privately_owned"`
+	// HomePin 是否显示在首页推荐区：t 是/f 否
+	HomePin string `orm:"column(home_pin);size(1);default(f);description(是否显示在首页推荐区：t 是/f 否)" json:"home_pin"`
 	// 当项目是私有时的访问Token.
 	PrivateToken string `orm:"column(private_token);size(500);null;description(当项目是私有时的访问Token)" json:"private_token"`
 	//访问密码.
@@ -121,6 +123,9 @@ func (book *Book) Insert(lang string) error {
 	o := orm.NewOrm()
 	//	o.Begin()
 	book.BookName = utils.StripTags(book.BookName)
+	if book.HomePin == "" {
+		book.HomePin = "f"
+	}
 	if book.ItemId <= 0 {
 		book.ItemId = 1
 	}
@@ -173,6 +178,9 @@ func (book *Book) Update(cols ...string) error {
 	o := orm.NewOrm()
 
 	book.BookName = utils.StripTags(book.BookName)
+	if book.HomePin == "" {
+		book.HomePin = "f"
+	}
 	temp := NewBook()
 	temp.BookId = book.BookId
 
@@ -571,6 +579,28 @@ WHERE book.privately_owned = 0 or rel.role_id >=0 or team.role_id >=0 ORDER BY o
 
 		_, err = o.Raw(sql, pageSize, offset).QueryRows(&books)
 
+	}
+	return
+}
+
+// FindHomePins 查找首页推荐项目.
+func (book *Book) FindHomePins(limit int) (books []*BookResult, err error) {
+	if limit <= 0 {
+		limit = 4
+	}
+	var rows []*Book
+	_, err = book.QueryTable().
+		Filter("privately_owned", 0).
+		Filter("home_pin", "t").
+		OrderBy("-order_index", "-book_id").
+		Limit(limit).
+		All(&rows)
+	if err != nil {
+		return
+	}
+	books = make([]*BookResult, 0, len(rows))
+	for _, item := range rows {
+		books = append(books, NewBookResult().ToBookResult(*item))
 	}
 	return
 }

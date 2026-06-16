@@ -152,6 +152,7 @@ func (c *BookController) SaveBook() {
 	isDownload := strings.TrimSpace(c.GetString("is_download")) == "on"
 	enableShare := strings.TrimSpace(c.GetString("enable_share")) == "on"
 	isUseFirstDocument := strings.TrimSpace(c.GetString("is_use_first_document")) == "on"
+	homePin := strings.TrimSpace(c.GetString("home_pin")) == "on"
 	autoSave := strings.TrimSpace(c.GetString("auto_save")) == "on"
 	itemId, _ := c.GetInt("itemId")
 	pringState := strings.TrimSpace(c.GetString("print_state")) == "on"
@@ -207,6 +208,11 @@ func (c *BookController) SaveBook() {
 		book.IsUseFirstDocument = 1
 	} else {
 		book.IsUseFirstDocument = 0
+	}
+	if homePin {
+		book.HomePin = "t"
+	} else {
+		book.HomePin = "f"
 	}
 	if autoSave {
 		book.AutoSave = 1
