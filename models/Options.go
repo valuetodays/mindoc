@@ -164,6 +164,17 @@ func (m *Option) Init() error {
 		}
 	}
 
+	if !o.QueryTable(m.TableNameWithPrefix()).Filter("option_name", "site_about_url").Exist() {
+		option := NewOption()
+		option.OptionValue = ""
+		option.OptionName = "site_about_url"
+		option.OptionTitle = "关于页面链接"
+		option.Remark = "用于控制顶部导航“关于”菜单的跳转地址，留空则不显示。示例：/article/about"
+		if _, err := o.Insert(option); err != nil {
+			return err
+		}
+	}
+
 	if !o.QueryTable(m.TableNameWithPrefix()).Filter("option_name", "site_script").Exist() {
 		option := NewOption()
 		option.OptionValue = ""
@@ -224,6 +235,16 @@ func (m *Option) Update() error {
 		option.OptionValue = ""
 		option.OptionName = "site_script"
 		option.OptionTitle = "自定义脚本"
+		if _, err := o.Insert(option); err != nil {
+			return err
+		}
+	}
+	if !o.QueryTable(m.TableNameWithPrefix()).Filter("option_name", "site_about_url").Exist() {
+		option := NewOption()
+		option.OptionValue = ""
+		option.OptionName = "site_about_url"
+		option.OptionTitle = "关于页面链接"
+		option.Remark = "用于控制顶部导航“关于”菜单的跳转地址，留空则不显示。示例：/article/about"
 		if _, err := o.Insert(option); err != nil {
 			return err
 		}

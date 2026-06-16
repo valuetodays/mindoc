@@ -37,9 +37,12 @@ func (c *BlogController) Prepare() {
 // 文章阅读
 func (c *BlogController) Index() {
 	c.Prepare()
-	c.TplName = "blog/index.tpl"
 	blogId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
+	renderBlog(&c.BaseController, blogId)
+}
 
+func renderBlog(c *BaseController, blogId int) {
+	c.TplName = "blog/index.tpl"
 	if blogId <= 0 {
 		c.ShowErrorPage(404, i18n.Tr(c.Lang, "message.page_not_existed"))
 	}

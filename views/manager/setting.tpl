@@ -46,6 +46,11 @@
                             <p class="text">{{i18n .Lang "mgr.site_desc_tips"}}</p>
                         </div>
                         <div class="form-group">
+                            <label>{{i18n .Lang "mgr.site_about_url"}}</label>
+                            <input type="text" class="form-control" name="site_about_url" placeholder="/article/about" value="{{.site_about_url}}">
+                            <p class="text">{{i18n .Lang "mgr.site_about_url_tips"}}</p>
+                        </div>
+                        <div class="form-group">
                             <label>{{i18n .Lang "mgr.site_script"}}</label>
                             <textarea rows="6" class="form-control" name="site_script" style="height: 150px" placeholder="{{i18n .Lang "mgr.site_script"}}">{{.site_script}}</textarea>
                             <p class="text">{{i18n .Lang "mgr.site_script_tips"}}</p>

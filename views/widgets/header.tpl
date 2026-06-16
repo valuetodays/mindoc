@@ -19,6 +19,11 @@
                     <li {{if eq .ControllerName "ItemsetsController"}}class="active"{{end}}>
                         <a href="{{urlfor "ItemsetsController.Index" }}" title={{i18n .Lang "common.project_space"}}>{{i18n .Lang "common.project_space"}}</a>
                     </li>
+                    {{if .site_about_url}}
+                    <li>
+                        <a href="{{urlfor "SiteController.About"}}" title="{{i18n .Lang "common.about"}}">{{i18n .Lang "common.about"}}</a>
+                    </li>
+                    {{end}}
                 </ul>
                 <div class="searchbar pull-left visible-lg-inline-block visible-md-inline-block">
                     <form class="form-inline" action="{{urlfor "SearchController.Index"}}" method="get">
