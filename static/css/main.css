@@ -489,7 +489,8 @@ body .scrollbar-track-color {
 
 .home-book-link {
     float: left;
-    display: block;
+    display: flex;
+    align-items: center;
     width: 15.66%;
     height: 34px;
     margin: 0 1% 10px 0;
@@ -502,13 +503,25 @@ body .scrollbar-track-color {
     line-height: 32px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .home-book-link:hover {
     border-color: #cfded5;
     color: #1f5f3d;
     background: #f7faf8;
+}
+
+.home-book-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.home-book-private-icon {
+    flex: 0 0 auto;
+    margin-left: 6px;
+    color: #8a948f;
+    font-size: 12px;
 }
 
 .home-book-empty {

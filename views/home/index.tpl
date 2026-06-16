@@ -63,7 +63,7 @@
                 </div>
                 {{range $index,$item := .Lists}}
                     <a href="{{urlfor "DocumentController.Index" ":key" $item.Identify}}" class="home-book-link" data-id="{{$item.BookId}}" title="{{$item.BookName}}">
-                        {{$item.BookName}}
+                        <span class="home-book-name">{{$item.BookName}}</span>{{if eq $item.PrivatelyOwned 1}}<i class="fa fa-lock home-book-private-icon" aria-hidden="true"></i>{{end}}
                     </a>
                 {{else}}
                     <div class="home-book-empty">{{i18n $.Lang "message.no_project"}}</div>

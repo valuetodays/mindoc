@@ -4,7 +4,9 @@
 
 - Docker 发布：增加 Docker Hub 上传流程，并将构建基础环境切换到 Ubuntu 24.04。
 - 用户头像：支持用户头像使用完整的 `http` 或 `https` 绝对地址。
+  + `UPDATE "public"."md_members" SET "avatar" = 'https://example.com/abc.jpg' WHERE "member_id" = ?`
 - 首页布局：优化首页 hero、卡片和知识目录区域的展示宽度与紧凑度。
+- 私有知识库标识：首页“知识库目录”中私有项目会在名称旁显示小锁图标。
 - 页面水印：增加可配置的页面水印能力。
 - 自定义脚本：增加站点访问统计或埋点脚本配置。
 - Release 流程：增加 GitHub Actions release 工作流。
