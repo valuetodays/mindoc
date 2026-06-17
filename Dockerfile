@@ -96,9 +96,6 @@ ENV PATH="/opt/calibre:$PATH" \
 # 测试 calibre 是否可正常使用
 ##RUN ebook-convert --version
 
-# refer: https://docs.docker.com/engine/reference/builder/#volume
-VOLUME ["/mindoc/conf","/mindoc/static","/mindoc/views","/mindoc/uploads","/mindoc/runtime","/mindoc/database"]
-
 # refer: https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 8181/tcp
 
@@ -112,5 +109,4 @@ ENTRYPOINT ["/bin/bash", "/mindoc/start.sh"]
 # https://docs.docker.com/engine/reference/commandline/run/#options
 # set MINDOC=//d/mindoc # windows
 # export MINDOC=/home/ubuntu/mindoc-docker # linux
-# docker run -d --name=mindoc --restart=always -v /www/mindoc/uploads:/mindoc/uploads -v /www/mindoc/database:/mindoc/database  -v /www/mindoc/conf:/mindoc/conf  -e MINDOC_DB_ADAPTER=sqlite3 -e MINDOC_DB_DATABASE=./database/mindoc.db -e MINDOC_CACHE=true -e MINDOC_CACHE_PROVIDER=file -p 8181:8181 mindoc-org/mindoc:v2.1
-
+# docker run -d --name=mindoc --restart=always -v /www/mindoc/uploads:/mindoc/uploads -v /www/mindoc/runtime:/mindoc/runtime -e MINDOC_DB_ADAPTER=postgres -e MINDOC_DB_HOST=127.0.0.1 -e MINDOC_DB_DATABASE=mindoc -e MINDOC_DB_USERNAME=mindoc -e MINDOC_DB_PASSWORD=secret -p 8181:8181 mindoc-org/mindoc:v2.1

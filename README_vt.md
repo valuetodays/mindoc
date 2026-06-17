@@ -36,4 +36,40 @@
 
 ## 部署排查
 
-如果容器本地访问正常但外部域名仍显示旧文案或旧页面，优先检查外层 OpenResty/Nginx 是否代理到旧实例、旧端口或启用了缓存，并在调整后 reload 代理服务。
+### Docker 挂载目录
+
+生产环境尽量不要挂载整个 `/mindoc/conf`、`/mindoc/static`、`/mindoc/views` 或 `/mindoc/database`。
+
+- `/mindoc/static` 和 `/mindoc/views` 属于镜像发布内容，挂载宿主机目录会导致升级镜像后仍使用旧静态资源或旧模板。
+- `/mindoc/conf` 包含语言包等镜像发布内容，挂载宿主机目录会覆盖镜像内的新文件。发布新版本后如果宿主机旧语言包缺少新增字段，可能出现同一页面大部分菜单是中文、单个菜单回退为英文的情况。
+- 使用 PostgreSQL 等外部数据库时，不需要挂载 `/mindoc/database`。
+- 一般只保留业务数据目录，例如 `/mindoc/uploads`；如需持久化日志或运行态文件，可保留 `/mindoc/runtime`。
+
+推荐挂载示例：
+
+```yaml
+volumes:
+  - /opt/docker_data/minDoc/uploads:/mindoc/uploads
+  - /opt/docker_data/minDoc/runtime:/mindoc/runtime
+```
+
+当前 Dockerfile 不声明 `VOLUME`，需要持久化的目录统一由 `docker run -v` 或 `docker-compose.yml` 显式指定，避免镜像自动创建匿名 volume。
+
+如果从旧镜像升级，历史容器可能已经存在 `/mindoc/conf` 匿名 volume。发布新版本时可刷新匿名 volume，确保 `/mindoc/conf/lang` 使用新镜像内的语言包：
+
+```bash
+docker compose up -d --force-recreate --renew-anon-volumes
+```
+
+如果不是使用 compose，而是手动 `docker run`，更新容器时删除旧容器及匿名 volume：
+
+```bash
+docker rm -f -v mindoc
+```
+
+语言包异常时可先检查运行容器内的实际文件：
+
+```bash
+docker exec mindoc grep -n '^about[[:space:]]*=' /mindoc/conf/lang/zh-cn.ini
+docker exec mindoc grep -n '^about[[:space:]]*=' /mindoc/__default_assets__/conf/lang/zh-cn.ini
+```
