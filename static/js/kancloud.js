@@ -242,8 +242,12 @@ function initHighlighting() {
 }
 
 function handleEvent(event) {
+    if (event.ctrlKey || event.metaKey) {
+        return;
+    }
+
     switch (event.keyCode) {
-        case 70: // ctrl + f 打开搜索面板 并获取焦点
+        case 70:
             $(".navg-item[data-mode='search']").click();
             document.getElementById('searchForm').querySelector('input').focus();
             event.preventDefault();
