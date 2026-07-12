@@ -13,6 +13,15 @@
 - 文章页快捷键：站内搜索不再拦截 `Ctrl+F` / `Cmd+F`，保留浏览器原生页面查找。
 - Release 流程：增加 GitHub Actions release 工作流。
 
+## 打包
+
+```shell
+docker build --progress=plain  -t vt-mindoc:v2.2-beta.2-vt1 .
+
+docker compose down && docker compose up -d --force-recreate
+```
+
+
 ## 站内中转路径
 
 以 `/s/` 开头的路径约定为站内中转路径，用于在页面上暴露稳定、可读的站内地址，再由服务端根据配置解析到实际目标内容。
